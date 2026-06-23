@@ -8,8 +8,6 @@
 
 Open-source DevOps/SRE reference project for safe releases, observability, supply-chain checks, and automated rollback.
 
-![Release Sentinel overview](docs/assets/release-sentinel-hero.svg)
-
 Release Sentinel ships a small Go service with controlled failure injection, a hardened container image, Kubernetes and Helm manifests, Prometheus/Grafana observability, canary rollout analysis, load tests, CI security checks, and runbooks.
 
 The core idea is simple: a release should not be trusted just because it builds. It should prove that it behaves correctly under real traffic signals before it is promoted.
@@ -37,8 +35,6 @@ Most release examples stop at "deploy an app to Kubernetes." This project models
 - operational runbooks for high error rate, latency spikes, and failed rollbacks.
 
 ## Architecture
-
-![Release safety loop](docs/assets/release-flow.svg)
 
 ```mermaid
 flowchart LR
