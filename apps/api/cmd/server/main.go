@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"flag"
 	"log/slog"
 	"net/http"
 	"os"
@@ -17,6 +18,13 @@ import (
 )
 
 func main() {
+	healthcheck := flag.Bool("healthcheck", false, "check local health endpoint")
+	flag.Parse()
+	if *healthcheck {
+		runHealthcheck()
+		return
+	}
+
 	cfg, err := config.Load()
 	if err != nil {
 		slog.Error("configuration error", "error", err)
@@ -63,6 +71,19 @@ func main() {
 			logger.Error("api server failed", "error", err)
 			os.Exit(1)
 		}
+	}
+}
+
+func runHealthcheck() {
+	client := http.Client{Timeout: 2 * time.Second}
+	response, err := client.Get("http://127.0.0.1:8080/healthz")
+	if err != nil {
+		os.Exit(1)
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode != http.StatusOK {
+		os.Exit(1)
 	}
 }
 
