@@ -56,10 +56,6 @@ flowchart LR
   AppTraces["OTLP traces"] --> OTel["OpenTelemetry Collector"]
 ```
 
-## Observability Preview
-
-![Release Sentinel dashboard preview](docs/assets/dashboard-preview.svg)
-
 ## Quick start
 
 ```bash
