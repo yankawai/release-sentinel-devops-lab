@@ -1,8 +1,10 @@
 # Release Sentinel DevOps Lab
 
-Production-style DevOps/SRE showcase for safe releases, observability, and automated rollback.
+Production-style DevOps/SRE showcase for safe releases, observability, supply-chain checks, and automated rollback.
 
-The lab ships a small Go service with controlled failure injection, a hardened container image, Kubernetes and Helm manifests, Prometheus/Grafana observability, canary rollout analysis, load tests, and runbooks. The goal is to demonstrate how a release system can detect a bad version through live telemetry and stop it before it reaches all traffic.
+The lab ships a small Go service with controlled failure injection, a hardened container image, Kubernetes and Helm manifests, Prometheus/Grafana observability, canary rollout analysis, load tests, CI security checks, and runbooks.
+
+The core idea is simple: a release should not be trusted just because it builds. It should prove that it behaves correctly under real traffic signals before it is promoted.
 
 ## What this demonstrates
 
@@ -13,7 +15,7 @@ The lab ships a small Go service with controlled failure injection, a hardened c
 - Argo Rollouts canary strategy with Prometheus-backed analysis;
 - Prometheus alerts, Grafana dashboard, and OpenTelemetry collector config;
 - k6 smoke/load tests for release validation;
-- CI pipeline with tests, image build, SBOM generation, and vulnerability scanning;
+- CI pipeline with tests, Helm rendering, image build, SBOM generation, and vulnerability scanning;
 - operational runbooks for high error rate, latency spikes, and failed rollbacks.
 
 ## Architecture
@@ -51,6 +53,12 @@ Useful endpoints:
 - `GET /work` - synthetic business endpoint with optional latency/error injection;
 - `GET /metrics` - Prometheus metrics.
 
+Smoke test:
+
+```bash
+make smoke
+```
+
 ## Local failure simulation
 
 ```bash
@@ -80,3 +88,11 @@ scripts/                  Local automation and validation scripts
 5. Watch Argo Rollouts abort the canary before full promotion.
 
 The manifests are designed so the demo can run on any Kubernetes cluster with Prometheus and Argo Rollouts installed.
+
+## Documentation
+
+- [Architecture](docs/architecture.md)
+- [Demo guide](docs/demo.md)
+- [High error rate runbook](docs/runbooks/high-error-rate.md)
+- [Latency spike runbook](docs/runbooks/latency-spike.md)
+- [Rollback failed runbook](docs/runbooks/rollback-failed.md)
