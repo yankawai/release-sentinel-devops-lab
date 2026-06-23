@@ -1,0 +1,6 @@
+image:
+  tag: "0.2.0-bad"
+
+env:
+  errorRate: "0.35"
+  latencyMs: "250"

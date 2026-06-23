@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: release-sentinel-success-rate
+spec:
+  metrics:
+    - name: success-rate
+      interval: 30s
+      count: 3
+      successCondition: result[0] >= 0.98
+      failureLimit: 1
+      provider:
+        prometheus:
+          address: http://prometheus-server.monitoring.svc.cluster.local
+          query: |
+            sum(rate(release_sentinel_work_total{result="success"}[1m]))
+            /
+            sum(rate(release_sentinel_work_total[1m]))
