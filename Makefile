@@ -45,3 +45,7 @@ validate: test vet
 .PHONY: load-test
 load-test:
 	k6 run tests/load/release-validation.js
+
+.PHONY: smoke
+smoke:
+	./scripts/smoke.sh
