@@ -1,10 +1,26 @@
 # Release Sentinel DevOps Lab
 
+[![CI](https://github.com/yankawai/release-sentinel-devops-lab/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yankawai/release-sentinel-devops-lab/actions/workflows/ci.yml)
+[![Go](https://img.shields.io/badge/Go-1.26-00ADD8?logo=go&logoColor=white)](apps/api/go.mod)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-ready-326CE5?logo=kubernetes&logoColor=white)](deploy/helm/release-sentinel)
+[![Security](https://img.shields.io/badge/SBOM%20%2B%20Trivy-enabled-2E3440)](.github/workflows/ci.yml)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Production-style DevOps/SRE showcase for safe releases, observability, supply-chain checks, and automated rollback.
 
 The lab ships a small Go service with controlled failure injection, a hardened container image, Kubernetes and Helm manifests, Prometheus/Grafana observability, canary rollout analysis, load tests, CI security checks, and runbooks.
 
 The core idea is simple: a release should not be trusted just because it builds. It should prove that it behaves correctly under real traffic signals before it is promoted.
+
+## Why it stands out
+
+Most demo repositories stop at "deploy an app to Kubernetes." This one models the full release safety loop: build, scan, deploy, measure, analyze, abort, and document the incident path.
+
+- Canary promotion is driven by Prometheus success-rate analysis, not manual judgment.
+- CI produces an SBOM and blocks fixable high/critical image vulnerabilities.
+- The runtime includes controlled fault injection for repeatable failure demos.
+- Operational docs cover error-rate incidents, latency regressions, and rollback failures.
+- The manifests use production-facing defaults: probes, resource boundaries, non-root containers, read-only root filesystem, NetworkPolicy, HPA, and PDB.
 
 ## What this demonstrates
 

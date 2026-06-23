@@ -1,0 +1,30 @@
+name: Feature request
+description: Suggest an improvement to the DevOps/SRE lab.
+title: "feat: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What operational or release-engineering gap does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the implementation approach and trade-offs.
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: Application behavior
+        - label: Kubernetes or Helm
+        - label: Observability
+        - label: CI or security
+        - label: Documentation or runbooks
