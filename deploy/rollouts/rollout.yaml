@@ -1,0 +1,73 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: release-sentinel
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: release-sentinel
+  strategy:
+    canary:
+      stableService: release-sentinel-stable
+      canaryService: release-sentinel-canary
+      trafficRouting: {}
+      steps:
+        - setWeight: 10
+        - pause:
+            duration: 60s
+        - analysis:
+            templates:
+              - templateName: release-sentinel-success-rate
+        - setWeight: 50
+        - pause:
+            duration: 120s
+        - analysis:
+            templates:
+              - templateName: release-sentinel-success-rate
+        - setWeight: 100
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: release-sentinel
+    spec:
+      serviceAccountName: release-sentinel
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+      containers:
+        - name: api
+          image: ghcr.io/yankawai/release-sentinel-api:0.2.0
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: ENVIRONMENT
+              value: production
+            - name: ERROR_RATE
+              value: "0"
+            - name: LATENCY_MS
+              value: "0"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
