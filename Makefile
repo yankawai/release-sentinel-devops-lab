@@ -41,3 +41,7 @@ helm-template:
 .PHONY: validate
 validate: test vet
 	./scripts/validate-yaml.sh
+
+.PHONY: load-test
+load-test:
+	k6 run tests/load/release-validation.js
