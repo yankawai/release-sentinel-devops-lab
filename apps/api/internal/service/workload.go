@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/yankawai/release-sentinel-devops-lab/apps/api/internal/config"
-	"github.com/yankawai/release-sentinel-devops-lab/apps/api/internal/metrics"
+	"github.com/yankawai/release-sentinel/apps/api/internal/config"
+	"github.com/yankawai/release-sentinel/apps/api/internal/metrics"
 )
 
 type Workload struct {

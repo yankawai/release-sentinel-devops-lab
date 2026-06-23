@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/yankawai/release-sentinel-devops-lab/apps/api/internal/config"
+	"github.com/yankawai/release-sentinel/apps/api/internal/config"
 )
 
 func RegisterHandlers(mux *http.ServeMux, cfg config.Config) {

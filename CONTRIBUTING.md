@@ -1,6 +1,6 @@
 # Contributing
 
-This repository is structured as a DevOps/SRE lab, so changes should preserve the release-safety story: application behavior, deployment automation, observability, and operational documentation should stay aligned.
+This repository is structured as a DevOps/SRE project, so changes should preserve the release-safety story: application behavior, deployment automation, observability, and operational documentation should stay aligned.
 
 ## Development checks
 

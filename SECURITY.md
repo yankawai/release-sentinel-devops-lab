@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-The `main` branch is the supported version of this lab.
+The `main` branch is the supported version of this project.
 
 ## Reporting a vulnerability
 
@@ -21,4 +21,4 @@ Open a private vulnerability report through GitHub Security Advisories when poss
 
 ## Out of scope
 
-This lab intentionally avoids cloud provider credentials and production cluster access. Cloud-specific hardening, IAM, private networking, and runtime admission control should be added in a real deployment.
+This project intentionally avoids cloud provider credentials and production cluster access. Cloud-specific hardening, IAM, private networking, and runtime admission control should be added in a real deployment.

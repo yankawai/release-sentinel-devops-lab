@@ -27,7 +27,7 @@ The Argo Rollouts manifest represents the promotion path. It shifts traffic in s
 
 ## Observability
 
-Prometheus scrapes `/metrics` and evaluates release SLO alerts. Grafana provisions a release dashboard with error rate, throughput, and average `/work` latency. Loki and OpenTelemetry configs are included so logs and traces have a defined integration path when the lab is connected to a fuller observability stack.
+Prometheus scrapes `/metrics` and evaluates release SLO alerts. Grafana provisions a release dashboard with error rate, throughput, and average `/work` latency. Loki and OpenTelemetry configs are included so logs and traces have a defined integration path when the project is connected to a fuller observability stack.
 
 ## Security posture
 

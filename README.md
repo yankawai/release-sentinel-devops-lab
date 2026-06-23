@@ -1,20 +1,20 @@
-# Release Sentinel DevOps Lab
+# Release Sentinel
 
-[![CI](https://github.com/yankawai/release-sentinel-devops-lab/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yankawai/release-sentinel-devops-lab/actions/workflows/ci.yml)
+[![CI](https://github.com/yankawai/release-sentinel/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yankawai/release-sentinel/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Go-1.26-00ADD8?logo=go&logoColor=white)](apps/api/go.mod)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-ready-326CE5?logo=kubernetes&logoColor=white)](deploy/helm/release-sentinel)
 [![Security](https://img.shields.io/badge/SBOM%20%2B%20Trivy-enabled-2E3440)](.github/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Production-style DevOps/SRE showcase for safe releases, observability, supply-chain checks, and automated rollback.
+Open-source DevOps/SRE reference project for safe releases, observability, supply-chain checks, and automated rollback.
 
-The lab ships a small Go service with controlled failure injection, a hardened container image, Kubernetes and Helm manifests, Prometheus/Grafana observability, canary rollout analysis, load tests, CI security checks, and runbooks.
+Release Sentinel ships a small Go service with controlled failure injection, a hardened container image, Kubernetes and Helm manifests, Prometheus/Grafana observability, canary rollout analysis, load tests, CI security checks, and runbooks.
 
 The core idea is simple: a release should not be trusted just because it builds. It should prove that it behaves correctly under real traffic signals before it is promoted.
 
 ## Why it stands out
 
-Most demo repositories stop at "deploy an app to Kubernetes." This one models the full release safety loop: build, scan, deploy, measure, analyze, abort, and document the incident path.
+Most release examples stop at "deploy an app to Kubernetes." This project models the full release safety loop: build, scan, deploy, measure, analyze, abort, and document the incident path.
 
 - Canary promotion is driven by Prometheus success-rate analysis, not manual judgment.
 - CI produces an SBOM and blocks fixable high/critical image vulnerabilities.
@@ -86,7 +86,7 @@ This makes `/work` fail roughly 35% of the time and sleep for 250 ms. The same k
 ## Repository layout
 
 ```text
-apps/api/                 Go service used by the release lab
+apps/api/                 Go service used by the release controller
 deploy/helm/              Helm chart for standard Kubernetes deployment
 deploy/rollouts/          Argo Rollouts canary and analysis templates
 observability/            Prometheus, Grafana, Loki, and OpenTelemetry config
@@ -109,6 +109,8 @@ The manifests are designed so the demo can run on any Kubernetes cluster with Pr
 
 - [Architecture](docs/architecture.md)
 - [Demo guide](docs/demo.md)
+- [Roadmap](ROADMAP.md)
+- [Governance](GOVERNANCE.md)
 - [High error rate runbook](docs/runbooks/high-error-rate.md)
 - [Latency spike runbook](docs/runbooks/latency-spike.md)
 - [Rollback failed runbook](docs/runbooks/rollback-failed.md)
