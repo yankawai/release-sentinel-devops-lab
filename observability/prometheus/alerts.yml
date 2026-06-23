@@ -1,0 +1,32 @@
+groups:
+  - name: release-sentinel.slo
+    rules:
+      - alert: ReleaseSentinelHighErrorRate
+        expr: |
+          (
+            sum(rate(release_sentinel_work_total{result="failure"}[2m]))
+            /
+            sum(rate(release_sentinel_work_total[2m]))
+          ) > 0.02
+        for: 2m
+        labels:
+          severity: page
+          service: release-sentinel-api
+        annotations:
+          summary: Release Sentinel work endpoint is breaching error budget
+          description: More than 2% of synthetic work requests failed for 2 minutes.
+
+      - alert: ReleaseSentinelLatencyRegression
+        expr: |
+          (
+            sum(rate(release_sentinel_http_request_duration_seconds_sum{path="/work"}[2m]))
+            /
+            sum(rate(release_sentinel_http_requests_total{path="/work"}[2m]))
+          ) > 0.25
+        for: 2m
+        labels:
+          severity: warning
+          service: release-sentinel-api
+        annotations:
+          summary: Release Sentinel work endpoint latency regressed
+          description: Average latency for /work has been above 250 ms for 2 minutes.
